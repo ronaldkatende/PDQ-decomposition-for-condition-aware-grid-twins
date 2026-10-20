@@ -1,0 +1,16 @@
+record,n_channels,svd_min_sensors_for_1pct,svd_min_sensors_for_2pct,svd_min_sensors_for_5pct,svd_min_sensors_for_10pct,rasd_min_sensors_for_1pct,rasd_min_sensors_for_2pct,rasd_min_sensors_for_5pct,rasd_min_sensors_for_10pct
+cell_r0_c0,2500,,,4.0,4,,,4.0,4
+cell_r0_c1,2500,,,4.0,4,,,4.0,4
+cell_r0_c2,985,,64.0,4.0,4,,,4.0,4
+cell_r1_c0,2500,,,16.0,4,,,8.0,4
+cell_r1_c1,2500,,4.0,4.0,4,,4.0,4.0,4
+cell_r1_c2,2500,,4.0,4.0,4,,4.0,4.0,4
+cell_r2_c0,1287,,,,8,,,,8
+cell_r2_c1,2500,4.0,4.0,4.0,4,4.0,4.0,4.0,4
+cell_r2_c2,1927,4.0,4.0,4.0,4,4.0,4.0,4.0,4
+cell_r3_c0,337,,,,4,,,,4
+cell_r3_c1,1364,16.0,4.0,4.0,4,64.0,4.0,4.0,4
+cell_r3_c2,515,,16.0,4.0,4,,64.0,4.0,4
+cell_r4_c0,474,,16.0,4.0,4,,16.0,4.0,4
+cell_r4_c1,1129,4.0,4.0,4.0,4,4.0,4.0,4.0,4
+cell_r4_c2,502,4.0,4.0,4.0,4,4.0,4.0,4.0,4

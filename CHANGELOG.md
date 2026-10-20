@@ -1,15 +1,11 @@
-# Changelog
+# Changes
 
-## 1.0.0 — GitHub-ready rebuild
+## Public reproducibility preparation (2026)
 
-- rebuilt the repository around the supplied acquisition and validation code;
-- separated configuration, runtime data, generated results, and publication evidence;
-- retained the real Ponte Moesa and GridEye validation workflows;
-- retained the provenance-aware acquisition system and source catalogue;
-- added a clear root README and replacement/upload guide;
-- added a no-download synthetic demonstration;
-- added numerical recovery tests in addition to static repository tests;
-- added GitHub Actions testing on Python 3.10 and 3.12;
-- added cross-platform quick/publication runners;
-- added issue and pull-request templates focused on reproducibility;
-- added a citation file, explicit code/data rights, and stronger ignore rules.
+- Repaired missing `dce_data` Python package in the distribution.
+- Consolidated the frozen publication JSON, tables, statistics, and figures into the GitHub-ready project.
+- Added offline evidence-verification script and numerical invariance tests.
+- Removed outdated personal repository links and legacy uploading instructions.
+- Replaced machine- and author-specific instructions with portable project-relative commands.
+- Clarified raw-data download requirements, rights, supported verification scope, and release procedure.
+- Left the mathematical method, experimental configurations, and frozen results unchanged.

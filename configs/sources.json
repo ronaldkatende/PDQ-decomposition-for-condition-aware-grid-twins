@@ -39,6 +39,7 @@
   "grideye_real_pmu_2025": {
     "adapter": "zenodo",
     "profiles": [
+      "paper",
       "core",
       "extended",
       "full"
@@ -53,6 +54,7 @@
   "ponte_moesa_2025": {
     "adapter": "eth_dspace",
     "profiles": [
+      "paper",
       "core",
       "structural",
       "extended",
@@ -64,9 +66,10 @@
     "country": "Switzerland",
     "landing": "https://www.research-collection.ethz.ch/items/1d379016-0fc4-49c7-8ff0-85cbc12e624f",
     "license_note": "CC BY-NC 4.0 on open dataset record; verify individual bitstream terms.",
-    "core_name_regex": "(?i)(general|organization|distributed.*optical|fibre|fiber)",
+    "core_name_regex": "(?i)(strain[ _-]*data\\.zip|general|organization|distributed.*optical|fibre|fiber)",
     "structural_name_regex": "(?i)(general|organization|distributed.*optical|fibre|fiber|acceleration)",
-    "full_name_regex": ".*"
+    "full_name_regex": ".*",
+    "paper_name_regex": "(?i)(strain[ _-]*data\\.zip|distributed.*optical.*\\.zip|fibre.*\\.zip|fiber.*\\.zip)"
   },
   "lbnl_micropmu": {
     "adapter": "lbnl_index",

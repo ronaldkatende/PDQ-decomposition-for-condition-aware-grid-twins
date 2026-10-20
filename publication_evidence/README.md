@@ -1,9 +1,10 @@
-# Publication evidence
+# Archived publication evidence
 
-This folder is populated by:
+These tables, charts, event hashes, LaTeX tables, and reports are the frozen publication evidence supplied with the accepted manuscript. They are stored as recorded and should not be overwritten in place. To regenerate their analytical aggregates from frozen experiment JSON, run:
 
 ```bash
-python scripts/build_publication_evidence.py --results-root results --data-root data --out publication_evidence
+python scripts/build_publication_evidence.py --results-root results --out evidence_rebuilt
+python scripts/verify_archived_evidence.py --rebuilt evidence_rebuilt
 ```
 
-Use the generated evidence to populate manuscript tables/figures only after checking that the run used the frozen publication configuration and the intended data versions.
+The original `grideye_event_hashes.csv` requires the original source archives to recompute; an offline evidence rebuild will not fabricate those hashes.

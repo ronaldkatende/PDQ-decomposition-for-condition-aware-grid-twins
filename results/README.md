@@ -1,17 +1,9 @@
-# Results
+# Frozen publication experiment outputs
 
-Generated experiment outputs are written here by `scripts/dce_real_validation.py`.
+These JSON documents were copied without altering their scientific values from the supplied accepted-manuscript reproducibility archive.
 
-Typical structure:
+- `ponte/publication/ponte_results.json`
+- `ponte/publication/ponte_manifest.json`
+- `grideye/publication/grideye_results.json`
 
-```text
-results/
-  ponte/
-    quick/
-    publication/
-  grideye/
-    quick/
-    publication/
-```
-
-The contents are git-ignored by default so that large or machine-specific experiment outputs are not committed accidentally. For a paper release, selectively add only the final lightweight tables/JSON summaries you intend to publish.
+Run the evidence builder from these files to reproduce the paper's aggregated tables and figures **without rerunning the modelling experiments**. Use a separate folder when generating new outputs. The fixed-source output files are not raw measurement datasets.

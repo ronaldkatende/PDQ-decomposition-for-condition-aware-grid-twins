@@ -1,13 +1,10 @@
-# Local data directory
+# Runtime data directory
 
-This directory is intentionally empty in Git.
+Only download data from their original providers and obey their access and reuse licences. No raw Ponte Moesa or GridEye datasets are included in this repository. The acquisition program records provenance here at runtime.
 
-The scripts create:
+Required publication inputs, after download and preparation:
 
-- `raw/` - downloaded source files, unchanged;
-- `metadata/` - source discovery metadata;
-- `provenance/` - checksums and download manifests;
-- `derived/` - prepared analysis files;
-- `audit/` - inventories and basic integrity checks.
+- `raw/ponte_moesa_2025/Strain Data.zip`
+- `raw/grideye_real_pmu_2025/Steady state data.zip`
 
-Do not commit third-party raw data unless its licence explicitly permits redistribution and you have intentionally decided to do so.
+Optional event archives: `raw/grideye_real_pmu_2025/Frequency events.zip` and `raw/grideye_real_pmu_2025/Voltage events.zip`.

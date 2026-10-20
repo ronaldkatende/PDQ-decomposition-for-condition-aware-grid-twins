@@ -1,273 +1,118 @@
-# Condition-Aware Sparse-Sensor Full-Field Recovery for Digital Twins
+# Sparse-sensor full-field recovery for digital twins
 
-[![tests](https://github.com/karjxenval/PDQ-decomposition-for-condition-aware-grid-twins/actions/workflows/tests.yml/badge.svg)](https://github.com/karjxenval/PDQ-decomposition-for-condition-aware-grid-twins/actions/workflows/tests.yml)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Status](https://img.shields.io/badge/status-research%20code-orange)
+Reproducibility code for the research paper **Stable Sparse-Sensor Full-Field Recovery for Industrial Digital Twins** (*Data-Centric Engineering*, accepted manuscript). This release contains the original numerical workflow, its frozen output JSON files, and the tables and figures derived from them. No third-party raw measurements are redistributed.
 
-Reproducible code for acquiring public real-world datasets and testing stable sparse-sensor full-field recovery under limited observations.
+## What the project does
 
-The repository is built around two questions:
+The workflow reconstructs spatial strain and electrical measurement fields using sparse observations and a reduced basis. It compares proper orthogonal decomposition / singular value decomposition (POD/SVD) with recovery-aware subspace design (RASD). It reports field reconstruction error, representation error, latent identifiability, sensor-to-field amplification, and ridge-regularization bias. It also tests transfer across measurement regimes.
 
-> **Can a high-dimensional physical field be reconstructed from a small number of sensors?**  
-> **When recovery fails, can we identify why it failed?**
+The main evidence comes from two publicly available datasets:
 
-The pipeline therefore reports reconstruction error together with representation, identifiability, conditioning, amplification, regularization, and distribution-shift diagnostics.
+| Dataset | Source | Purpose |
+| --- | --- | --- |
+| Ponte Moesa Campagnola bridge | https://doi.org/10.3929/ethz-b-000716850 | Distributed strain; 15 records; chronological splits |
+| GridEye phasor measurements | https://doi.org/10.5281/zenodo.17648863 | Electrical fields; morning train, noon validation, evening test |
 
-## Repository-name note
+Additional sources in `configs/sources.json` are optional acquisition examples. They **are not** evidence supporting the paper's main results.
 
-The GitHub URL keeps the earlier name `PDQ-decomposition-for-condition-aware-grid-twins`. The current code is the cleaned validation workflow for the condition-aware sparse-recovery study. In the supplied implementation, the recovery-aware basis is labelled **RASD** and is compared with standard POD/SVD under controlled sensor sets. The repository name should not be read as a claim that the algebraic factorization `A ≈ PDQ` itself defines a new rank class.
+## Quick start (Windows, Linux, macOS)
 
-## What is included
-
-```text
-.
-├── dce_data/                    # acquisition library and provenance tools
-├── configs/
-│   ├── sources.json             # machine-readable data catalogue
-│   └── validation.json          # quick/publication settings and seed
-├── scripts/
-│   ├── download_all.py
-│   ├── audit_data.py
-│   ├── prepare_era.py
-│   ├── prepare_csv_measurements.py
-│   ├── dce_real_validation.py
-│   ├── build_publication_evidence.py
-│   ├── run_quick.sh
-│   ├── run_publication.sh
-│   └── windows/                 # Windows runners
-├── tests/                       # static + numerical no-data tests
-├── examples/                    # synthetic smoke demonstration
-├── docs/                        # scientific and reproducibility documentation
-├── data/                        # local runtime data; payloads are git-ignored
-├── results/                     # generated experiment results
-├── publication_evidence/        # generated tables/figures/summaries
-├── .github/                     # CI and issue/PR templates
-├── CITATION.cff
-├── LICENSE
-├── requirements.txt
-└── pyproject.toml
-```
-
-## Scientific safeguards
-
-The validation code is designed to prevent the most common ways a sparse-recovery experiment can look better than it really is.
-
-- Chronological or cross-regime splits are used rather than random shuffling of adjacent time samples.
-- Centering and scaling are fitted on training data only.
-- Sensor selection uses training information only.
-- POD/SVD and RASD are compared using controlled sensor sets.
-- Rank and ridge regularization are selected without using the final test set.
-- Rank-deficient sensed bases are reported explicitly.
-- The pipeline reports smallest singular value, condition number when defined, projection error, exact sensor-to-field amplification, and ridge-bias diagnostics.
-- Paired comparisons and bootstrap intervals are included.
-- Publication aggregation avoids treating repeated configurations from one physical record as independent experiments.
-- The evidence builder does not automatically claim universal superiority from one mean result.
-
-See [`docs/SCIENTIFIC_PLAN.md`](docs/SCIENTIFIC_PLAN.md) and [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
-
-## Data sources
-
-| Source | Main role | Access |
-|---|---|---|
-| **Ponte Moesa bridge benchmark** | primary structural sparse-to-dense field recovery | ETH Research Collection |
-| **GridEye PMU data** | primary real multi-location electrical validation | Zenodo |
-| **KIOS real PMU data** | supporting electrical measurements | Zenodo |
-| **ERA Uganda public statistics** | Uganda calibration / external realism | official public statistics |
-| **LBNL micro-PMU data** | secondary distribution-level evidence | public data index |
-| **PNNL/ORNL GESL** | additional event evidence | manual access |
-| **Z24 bridge benchmark** | additional structural benchmark | manual / terms-sensitive |
-
-Raw third-party datasets are **not bundled or redistributed**. The acquisition layer records provenance and leaves restricted/manual sources manual. See [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
-
-## Start here
-
-### 1. Create and activate an environment
+Create a Python 3.10+ virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-Windows:
-
-```bat
-.venv\Scripts\activate
-```
-
-Linux/macOS:
+Activate it with `.venv\Scripts\activate` on Windows or `source .venv/bin/activate` on Linux/macOS. Install the project and run local no-data checks:
 
 ```bash
-source .venv/bin/activate
-```
-
-### 2. Install
-
-```bash
-python -m pip install --upgrade pip
 python -m pip install -e . pytest
-```
-
-### 3. Check that the repository works before downloading anything
-
-```bash
-pytest -q
+python -m pytest -q
 python examples/synthetic_sparse_recovery_demo.py
 ```
 
-The synthetic example is only a software smoke test. It is **not** used as scientific evidence.
+The synthetic example is a **software test only**, not a source of reported scientific evidence. All scripts use project-relative defaults; no personal computer directories are needed.
 
-### 4. Inspect the core acquisition plan
+## Verify the paper's tables without downloading data
 
-```bash
-python scripts/download_all.py --profile core --root data --max-gb 5 --dry-run
+The exact recorded publication outputs are provided under:
+
+```text
+results/ponte/publication/{ponte_results.json,ponte_manifest.json}
+results/grideye/publication/grideye_results.json
+publication_evidence/
 ```
 
-The default 5 GB guard prevents unexpected large downloads.
-
-### 5. Download and prepare the core public data
-
-Linux/macOS:
+Rebuild the tables, figures, and statistics from the frozen result JSON files:
 
 ```bash
-bash scripts/download_core.sh
+python scripts/build_publication_evidence.py --results-root results --out evidence_rebuilt
+python scripts/verify_archived_evidence.py --rebuilt evidence_rebuilt
 ```
 
-Windows:
+The verifier checks core numerical tables/statistics against the archived evidence. Event hash provenance in `publication_evidence/grideye_event_hashes.csv` was recorded during the original run: it can only be independently recomputed if you download the raw GridEye events. The evidence rebuild itself does **not** rerun the model training or the recovery experiments.
 
-```bat
-scripts\windows\download_core.bat
-```
+## Rerun the full experiments from original datasets
 
-Or run the steps manually:
+Dry-run the acquisition plan:
 
 ```bash
-python scripts/download_all.py --profile core --root data --max-gb 5
+python scripts/download_all.py --profile paper --root data --max-gb 5 --dry-run
+```
+
+Then fetch the public data (network access and source availability required):
+
+```bash
+python scripts/download_all.py --profile paper --root data --max-gb 5
 python scripts/audit_data.py --root data
-python scripts/prepare_era.py --root data
-python scripts/prepare_csv_measurements.py --root data
 ```
 
-## Run the validation
+The `paper` acquisition profile limits the downloader to Ponte Moesa and GridEye. The validation pipeline expects the following downloaded archives under `data/raw/` (see `docs/DATA_SOURCES.md` and `docs/REPRODUCIBILITY.md`):
 
-### Quick mode
+```text
+data/raw/ponte_moesa_2025/Strain Data.zip
+data/raw/grideye_real_pmu_2025/Steady state data.zip
+```
+
+If available, GridEye `Frequency events.zip` and `Voltage events.zip` enable the event stress tests. Acquisition of upstream data may be affected by provider access and file layout changes. The recorded output JSON files remain available for auditing even if downloads fail.
+
+Run a quick validation first:
 
 ```bash
 python scripts/dce_real_validation.py ponte --data-root data --quick
 python scripts/dce_real_validation.py grideye --data-root data --quick
 ```
 
-or:
-
-```bash
-bash scripts/run_quick.sh
-```
-
-Windows:
-
-```bat
-scripts\windows\quick_validation.bat
-```
-
-### Publication mode
+Run the specified publication-mode configuration:
 
 ```bash
 python scripts/dce_real_validation.py ponte --data-root data --publication
 python scripts/dce_real_validation.py grideye --data-root data --publication
-python scripts/build_publication_evidence.py --results-root results --data-root data --out publication_evidence
+python scripts/build_publication_evidence.py --results-root results --data-root data --out evidence_fresh
 ```
 
-or:
+Batch/shell wrappers are provided under `scripts/windows/` and `scripts/*.sh`. This can take substantial time and memory depending on the downloaded data and hardware. The paper's specific sensor budgets, rank grid, ridge grid, and random seed are recorded in `configs/validation.json`. No benchmark is promised to be identical across changed library versions and source datasets.
 
-```bash
-bash scripts/run_publication.sh
-```
-
-Windows:
-
-```bat
-scripts\windows\publication_validation.bat
-```
-
-## What the main experiments do
-
-### Ponte Moesa
-
-The distributed strain field is treated as measured dense truth. A strict subset of channels is retained as sensors and the rest of the field is reconstructed. The code compares standard POD/SVD recovery with the recovery-aware basis while keeping the scientific comparison controlled.
-
-### GridEye
-
-Magnitude-angle PMU pairs are transformed to real-imaginary coordinates to avoid angle wrap. PMU locations are selected as grouped physical sensors. The main cross-regime experiment uses:
+## Repository structure
 
 ```text
-morning  -> training
-noon     -> validation
-evening  -> testing
+configs/                  data-source catalogue and experiment settings
+dce_data/                 portable acquisition library
+scripts/                  validation, evidence building, checks, helpers
+tests/                    fast offline software and numerical tests
+examples/                 no-download synthetic demonstration
+results/                  frozen experiment JSON files (not raw data)
+publication_evidence/     frozen article tables, statistics, plots and hashes
+docs/                     data sources, reproducibility and release checks
+data/                     runtime-only downloads (excluded from Git)
 ```
 
-Adjacent samples are not randomly mixed across these blocks.
+The publication work compares bases at fixed sensor sites. RASD is **not** claimed to dominate SVD: the paper reports mixed results on real bridge and grid datasets. In particular, stronger nominal sensing geometry did not guarantee lower evening transfer error on GridEye. The released JSON and report allow readers to inspect both improvements and failures.
 
-## Diagnostics and outputs
+## Integrity, limitations and reuse
 
-Depending on the experiment, the code records:
-
-- relative reconstruction error;
-- projection error;
-- sampled latent-map rank and nullity;
-- smallest and largest singular values;
-- condition number when mathematically defined;
-- exact sensor-to-field amplification;
-- ridge-bias factor;
-- validation-selected rank and ridge strength;
-- selected sensor/PMU locations;
-- paired POD/SVD-versus-RASD comparisons;
-- bootstrap confidence intervals;
-- nested fixed-rank GridEye sensor paths;
-- event/OOD checks when compatible data are present;
-- publication-ready CSV, JSON, figure, and LaTeX outputs.
-
-The interpretation separates four possible limits:
-
-1. **representation-limited** — the low-rank space does not represent the field well enough;
-2. **sensor-identifiability-limited** — the retained sensors do not stably determine the latent state;
-3. **noise / distribution-shift-limited** — deployment conditions differ from training conditions;
-4. **regularization-limited** — stabilization introduces non-negligible bias.
-
-## Reproducibility
-
-For any reported result, retain:
-
-- the Git commit hash;
-- Python and operating-system versions;
-- the exact `configs/validation.json`;
-- acquisition provenance and hashes;
-- the run mode (`quick` or `publication`);
-- the frozen `publication_evidence/` bundle used for reporting.
-
-The acquisition scripts preserve raw files and write derived files separately. See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
-
-## Automated GitHub checks
-
-GitHub Actions runs on pushes and pull requests using Python 3.10 and 3.12. It compiles the code, runs the static and numerical tests, and executes the synthetic smoke example.
-
-Run the same checks locally with:
-
-```bash
-python -m compileall -q dce_data scripts tests examples
-pytest -q
-python examples/synthetic_sparse_recovery_demo.py
-```
-
-## Scope
-
-This repository contains the **acquisition, validation, diagnostics, and evidence-building code**. The full mathematical derivation and interpretation of the recovery framework belong in the associated manuscript.
-
-## Citation
-
-GitHub reads [`CITATION.cff`](CITATION.cff), which enables the **Cite this repository** interface. Add the final paper DOI there once it is available.
-
-## License and data rights
-
-The code is currently **all rights reserved**; see [`LICENSE`](LICENSE). Third-party datasets remain subject to the original providers' terms. Do not commit downloaded raw datasets to this repository.
-
-## Replacing the old repository
-
-Use [`docs/GITHUB_UPLOAD.md`](docs/GITHUB_UPLOAD.md). The important point is simple: **extract the ZIP locally, then upload/copy its contents. GitHub does not automatically unpack an uploaded ZIP into the repository.**
+- `SHA256SUMS.txt` records the included frozen results and evidence files; do not edit those outputs when presenting them as the paper's original evidence.
+- `python scripts/verify_archived_evidence.py --rebuilt evidence_rebuilt` checks key results without raw data.
+- The repository is not anonymized at the GitHub/Zenodo account level. No personal machine paths, private tokens, or outdated personal repository links are required in the source package.
+- The software is offered under the MIT License (see `LICENSE`). This licence covers original code only. Third-party datasets keep their own terms.
+- Cite the associated paper and the **version-specific Zenodo DOI** once issued. See `docs/RELEASE_CHECKLIST.md`.

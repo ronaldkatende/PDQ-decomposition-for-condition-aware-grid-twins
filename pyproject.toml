@@ -27,3 +27,6 @@ dce-download = "dce_data.cli:main"
 
 [tool.setuptools]
 packages = ["dce_data"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -16,3 +16,15 @@ def test_safe_name_preserves_extension():
 def test_validation_config_has_modes():
     c = json.loads((ROOT / "configs" / "validation.json").read_text(encoding="utf-8"))
     assert "quick" in c and "publication" in c and "seed" in c
+
+
+def test_paper_profile_only_targets_article_datasets():
+    c = json.loads((ROOT / "configs" / "sources.json").read_text(encoding="utf-8"))
+    selected = {name for name, spec in c.items() if "paper" in spec.get("profiles", [])}
+    assert selected == {"grideye_real_pmu_2025", "ponte_moesa_2025"}
+
+
+def test_ponte_publication_archive_is_discoverable():
+    import re
+    c = json.loads((ROOT / "configs" / "sources.json").read_text(encoding="utf-8"))
+    assert re.search(c["ponte_moesa_2025"]["paper_name_regex"], "Strain Data.zip")
