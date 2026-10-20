@@ -1,7 +1,0 @@
-archive,member,event_key,bytes,sha256
-Frequency events.zip,Frequency events/Underfrequency event 2.csv,Frequency events.zip::Underfrequency event 2.csv,1437584,12ae5b64c79f1de8617bd149ebb6a767cf46a8769948cf5bca864a9738f90200
-Frequency events.zip,Frequency events/Overfrequency event.csv,Frequency events.zip::Overfrequency event.csv,1437584,12ae5b64c79f1de8617bd149ebb6a767cf46a8769948cf5bca864a9738f90200
-Frequency events.zip,Frequency events/Underfrequency event.csv,Frequency events.zip::Underfrequency event.csv,1437584,12ae5b64c79f1de8617bd149ebb6a767cf46a8769948cf5bca864a9738f90200
-Voltage events.zip,Voltage events/Undervoltage event 2.csv,Voltage events.zip::Undervoltage event 2.csv,379203,98d2660e46c0f7d882411a8bb48accc0b9b2bc85743a6094bafc4da41241c947
-Voltage events.zip,Voltage events/Undervoltage event 3.csv,Voltage events.zip::Undervoltage event 3.csv,378047,f01010d3598e01b47b9a2ea2af427366597d2188765fb7a9784a1fd140608cd3
-Voltage events.zip,Voltage events/Undervoltage event 1.csv,Voltage events.zip::Undervoltage event 1.csv,1131449,845d2ee3040d241b49af16c8a9abc663c9211ec379acc1be440d716b7c770a39
