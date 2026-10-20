@@ -1,0 +1,52 @@
+\begin{table}
+\caption{Ponte Moesa record-level paired summary across sparse sensor budgets.}
+\label{tab:ponte_real_summary}
+\begin{tabular}{rrrrrrrr}
+\toprule
+Sensors & SVD median error (\%) & RASD median error (\%) & Median RASD change (\%) & Wins & Ties & Losses & Holm $p$ \\
+\midrule
+4 & 2.058 & 2.088 & -1.085 & 4 & 1 & 10 & 0.506 \\
+8 & 2.022 & 2.020 & 0.129 & 9 & 0 & 6 & 1.000 \\
+16 & 1.889 & 1.909 & -0.002 & 6 & 3 & 6 & 1.000 \\
+32 & 1.868 & 1.908 & -0.161 & 4 & 1 & 10 & 0.165 \\
+64 & 1.799 & 1.907 & -0.239 & 4 & 2 & 9 & 0.108 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\caption{GridEye morning-to-noon-to-evening cross-regime reconstruction.}
+\label{tab:grideye_main}
+\begin{tabular}{rlrrrrrr}
+\toprule
+Sites & Selected PMU sites & Rank & SVD val. (\%) & SVD test (\%) & RASD val. (\%) & RASD test (\%) & RASD change (\%) \\
+\midrule
+1 & 1_5 & 8 & 11.915 & 1.591 & 11.850 & 0.657 & 58.721 \\
+2 & 1_10;1_5 & 10 & 6.425 & 0.119 & 6.415 & 0.235 & -97.101 \\
+3 & 1_10;1_5;1_8 & 12 & 6.097 & 0.645 & 6.104 & 0.649 & -0.644 \\
+4 & 1_10;1_5;1_8;1_9 & 20 & 3.972 & 0.239 & 3.723 & 0.240 & -0.272 \\
+5 & 1_10;1_5;1_6;1_7;1_8 & 20 & 2.226 & 0.220 & 2.226 & 0.220 & 0.007 \\
+6 & 1_10;1_5;1_6;1_7;1_8;1_9 & 20 & 2.146 & 0.657 & 2.147 & 0.657 & -0.008 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\caption{Fixed-rank nested GridEye sensor path. Sensing geometry and deployment error are reported separately.}
+\label{tab:grideye_nested}
+\begin{tabular}{rlrrrrr}
+\toprule
+Sites & Nested site set & Noon error (\%) & Evening error (\%) & $\sigma_{\min}(SB)$ & Exact amplification & Ridge bias \\
+\midrule
+1 & 1_5 & 12.3604 & 2.2950 & 0.2766 & 3.5694 & 0.0127 \\
+2 & 1_5;1_7 & 12.6700 & 32.6529 & 0.4878 & 2.0499 & 0.0000 \\
+3 & 1_5;1_7;1_9 & 11.9179 & 27.2513 & 0.6242 & 1.6017 & 0.0003 \\
+4 & 1_5;1_7;1_9;1_6 & 11.7640 & 25.2312 & 0.7344 & 1.3372 & 0.0180 \\
+5 & 1_5;1_7;1_9;1_6;1_10 & 11.8150 & 25.4414 & 0.8309 & 1.2035 & 0.0000 \\
+6 & 1_5;1_7;1_9;1_6;1_10;1_8 & 11.8112 & 30.3946 & 0.9204 & 1.0864 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

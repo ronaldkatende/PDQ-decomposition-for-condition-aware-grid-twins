@@ -1,0 +1,9 @@
+{
+  "timestamp_utc": "2026-10-20T12:29:38.397623+00:00",
+  "profile": "paper",
+  "dry_run": true,
+  "sources": [
+    "grideye_real_pmu_2025",
+    "ponte_moesa_2025"
+  ]
+}

@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Please cite this software and the associated Data-Centric Engineering article if you use the code."
+title: "Sparse-sensor full-field recovery for industrial digital twins: reproducibility code"
+type: software
+authors:
+  - family-names: Katende
+    given-names: Ronald
+version: 1.0.0
+license: MIT
+repository-code: https://github.com/ronaldkatende/PDQ-decomposition-for-condition-aware-grid-twins
+keywords:
+  - digital twins
+  - sparse sensors
+  - recovery-aware subspace design
+  - reproducible numerical experiments
